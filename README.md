@@ -28,8 +28,6 @@ Helpful functions for analyzing an export of OpsGenie alerts and collecting usef
         * Remove strings from the alert alias before performing matching in --fuzzy-count. Input for this flag is a csv without headers that contains a single column of strings to strip out of the alias (e.g. server names).
 
 
-**Note:** `limit`, `interval`, `match` and `outfile` can all be chained to filter results of `count`. If `outfile` is specified `limit` is ignored.
-
 ### Future functionality
 * TBD
 
@@ -59,11 +57,11 @@ python oopsgenie.py alert-data-raw.csv --count Alias
 # Get a count of alerts grouped by the column "Alias" with server names stripped out
 python oopsgenie.py alert-data-raw.csv --count Alias --alias-strip-list server_names.csv
 
-# Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 90%
-python oopsgenie.py alert-data-raw.csv --count Alias --fuzzy-threshold 90
+# Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 80%
+python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --fuzzy-threshold 80
 
 # Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 90% and numbers removed from the alias before the fuzzy matching
-python oopsgenie.py alert-data-raw.csv --count Alias --fuzzy-threshold 90 --remove-numbers True
+python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --fuzzy-threshold 90 --remove-numbers True
 
 # Get a count of all alerts grouped by the column "Alias" that are created between the hours of 04 and 13 (UTC)
 python oopsgenie.py alert-data-raw.csv --count Alias --interval 4 13
