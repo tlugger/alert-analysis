@@ -7,7 +7,7 @@ Helpful functions for analyzing an export of OpsGenie alerts and collecting usef
     * Remove **(--remove _keyword1_ _keyword2_ _..._)**
         * A keyword to filter each cleaned row against. Matches on any value in the 'Message' column.
 * Count **(--count _column_)**
-    * Count the number of alerts matching a specified column name (default all alerts in csv). If no column is specified, return the total count of alerts
+    * Count the number of alerts matching a specified column name. Passing a column name of "all" will return the total count of alerts
     * Limit **(--limit _limit_)**
         * Limit the number of results returned, ordered by count highest to lowest
     * Time Interval Filtering **(--interval _hour1_ _hour2_)**
@@ -18,12 +18,14 @@ Helpful functions for analyzing an export of OpsGenie alerts and collecting usef
         * A filter matching alerts that update within x minutes (between "CreatedAt" and "UpdatedAt" timestamps)
     * Output file **(--outfile _filename_)**
         * A file to output the results of --count
-    * Fuzzy Threshold **(--fuzzy-threshold _threshold_)**
-        * A threshold of tolerance for fuzzy matching on your --count. This is based on Levenshtein Distance; If you don't set this parameter, it will default to perfect matches. 
+* Fuzzy Count **(--fuzzy-count _column_)**
+    * Count the number of alerts for a specified column name using fuzzy matching.
+    * Threshold **(--threshold _threshold_)**
+        * A threshold of tolerance for fuzzy matching on your --fuzzy-count. This is based on Levenshtein Distance; Default to 90.
     * Remove Numbers **(--remove-numbers _boolean_)**
         * Remove numbers from the alert alias before performing fuzzy matching in --count. This defaults to False and should be used in conjunction with the fuzzy threshold flag.
     * Alias Strip List File **(--alias-strip-list _csv_)**
-        * Remove strings from the alert alias before performing matching in --count. Input for this flag is a csv without headers that contains a single column of strings to strip out of the alias (e.g. server names).
+        * Remove strings from the alert alias before performing matching in --fuzzy-count. Input for this flag is a csv without headers that contains a single column of strings to strip out of the alias (e.g. server names).
 
 
 **Note:** `limit`, `interval`, `match` and `outfile` can all be chained to filter results of `count`. If `outfile` is specified `limit` is ignored.
