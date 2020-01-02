@@ -58,10 +58,10 @@ python oopsgenie.py alert-data-raw.csv --count Alias
 python oopsgenie.py alert-data-raw.csv --count Alias --alias-strip-list server_names.csv
 
 # Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 80%
-python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --fuzzy-threshold 80
+python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --threshold 80
 
 # Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 90% and numbers removed from the alias before the fuzzy matching
-python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --fuzzy-threshold 90 --remove-numbers True
+python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --threshold 90 --remove-numbers True
 
 # Get a count of all alerts grouped by the column "Alias" that are created between the hours of 04 and 13 (UTC)
 python oopsgenie.py alert-data-raw.csv --count Alias --interval 4 13
