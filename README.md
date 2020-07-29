@@ -30,49 +30,46 @@ Helpful functions for analyzing an export of OpsGenie alerts and collecting usef
 
 ### Future functionality
 * Implement matplotlib (or some other package) graphing for alerts over time
-* Wrap oopsgenie into a pip installable CLI tool
+* Publish to PyPI
 
 ### Running
-This requires Python3
+oopsgenie requires Python3.
 ```
-pip install virtualenv
-virtualenv -p python3 venv
-source venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 ```
 
 Usage Examples:
 ```bash
 # Clean alert-data-raw.csv to only include the columns "Alias", "CreatedAtDate", and "Teams" (creates alert-data-clean.csv)
-python oopsgenie.py alert-data-raw.csv --clean Alias CreatedAtDate Teams
+oopsgenie alert-data-raw.csv --clean Alias CreatedAtDate Teams
 
 # Clean alert-data-raw.csv to only include the column "Alias", "CreatedAtDate", and "Teams" but exclude any message containing "staging"
-python oopsgenie.py alert-data-raw.csv --clean Alias CreatedAtDate Teams --remove staging
+oopsgenie alert-data-raw.csv --clean Alias CreatedAtDate Teams --remove staging
 
 # Get a count of all alerts
-python oopsgenie.py alert-data-raw.csv --count
+oopsgenie alert-data-raw.csv --count
 
 # Get a count of alerts grouped by the column "Alias"
-python oopsgenie.py alert-data-raw.csv --count Alias
+oopsgenie alert-data-raw.csv --count Alias
 
 # Get a count of alerts grouped by the column "Alias" with server names stripped out
-python oopsgenie.py alert-data-raw.csv --count Alias --alias-strip-list server_names.csv
+oopsgenie alert-data-raw.csv --count Alias --alias-strip-list server_names.csv
 
 # Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 80%
-python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --threshold 80
+oopsgenie alert-data-raw.csv --fuzzy-count Alias --threshold 80
 
 # Get a count of alerts grouped by the column "Alias" and with a fuzzy matching threshold of 90% and numbers removed from the alias before the fuzzy matching
-python oopsgenie.py alert-data-raw.csv --fuzzy-count Alias --threshold 90 --remove-numbers True
+oopsgenie alert-data-raw.csv --fuzzy-count Alias --threshold 90 --remove-numbers True
 
 # Get a count of all alerts grouped by the column "Alias" that are created between the hours of 04 and 13 (UTC)
-python oopsgenie.py alert-data-raw.csv --count Alias --interval 4 13
+oopsgenie alert-data-raw.csv --count Alias --interval 4 13
 
 # Get a count of all alerts grouped by the column "Alias" that match the keyword "gdpr"
-python oopsgenie.py alert-data-raw.csv --count Alias --match gdpr
+oopsgenie alert-data-raw.csv --count Alias --match gdpr
 
 # Get a count of all alerts grouped by the column "Alias" that updated within 5 minutes of creation
-python oopsgenie.py alert-data-raw.csv --count Alias --update-minutes 5
+oopsgenie alert-data-raw.csv --count Alias --update-minutes 5
 
 # Get a count of alerts grouped by the column "Alias" and store in a file named "alias-count.csv
-python oopsgenie.py alert-data-raw.csv --count Alias --outfile alias-count.csv
+oopsgenie alert-data-raw.csv --count Alias --outfile alias-count.csv
 ```
