@@ -3,6 +3,7 @@ import os.path
 from oopsgenie.clean import Cleaner
 from oopsgenie.count import Counter, FuzzyCounter
 
+
 def is_valid_file(parser, arg):
     if not os.path.exists(arg):
         parser.error("The file {} does not exist!".format(arg))
@@ -53,6 +54,7 @@ def main():
         fuzzy_counter.count(file=args.file, column=args.fuzzy_count, limit=args.limit, threshold=args.threshold, 
                             remove_numbers=args.remove_numbers, outfile=args.outfile,
                             alias_strip_list=args.strip_file)
+
 
 if __name__ == "__main__":
     main()

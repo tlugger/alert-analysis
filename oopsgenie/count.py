@@ -68,6 +68,7 @@ class Counter(object):
                     writer.writerow(row)
             print("Done")
 
+
 class FuzzyCounter(Counter):
 
     def count(self, file, column, limit, threshold, remove_numbers, outfile, alias_strip_list):
