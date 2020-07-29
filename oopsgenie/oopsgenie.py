@@ -33,7 +33,7 @@ def main():
     parser.add_argument("--outfile", nargs='?', dest="outfile", default=None, const=None,
                         help="Optional file to output results of count")
     parser.add_argument("--threshold", nargs='?', dest="threshold", default=90, const=90, type=int,
-                        help="Threshold for alert fuzzy match (default: 100 - so 100% match)")
+                        help="Threshold for alert fuzzy match (default: 100 - so 100%% match)")
     parser.add_argument("--remove-numbers", nargs='?', dest="remove_numbers", default=False, const=None, type=bool,
                         help="Remove numbers from alias before doing fuzzy matching (default: False). \
                         To be used in conjuction with the fuzzy threshold flag")
