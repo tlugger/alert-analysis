@@ -1,5 +1,5 @@
 import csv
-from utils import get_valid_colum_indices
+from oopsgenie.utils import get_valid_colum_indices
 
 class Cleaner():
 

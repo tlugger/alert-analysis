@@ -1,7 +1,7 @@
 import argparse
 import os.path
-from clean import Cleaner
-from count import Counter, FuzzyCounter
+from oopsgenie.clean import Cleaner
+from oopsgenie.count import Counter, FuzzyCounter
 
 def is_valid_file(parser, arg):
     if not os.path.exists(arg):
