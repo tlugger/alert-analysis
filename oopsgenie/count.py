@@ -4,9 +4,10 @@ from oopsgenie.utils import get_valid_colum_indices
 from fuzzywuzzy import fuzz
 
 
-class Counter(object):
+class Counter:
 
-    def count(self, file, column, limit, interval, match, update_minutes, outfile):
+    @classmethod
+    def count(cls, file, column, limit, interval, match, update_minutes, outfile):
         with open(file, 'r') as f:
             reader = csv.reader(f, delimiter=',')
             headers = next(reader)
@@ -18,7 +19,7 @@ class Counter(object):
                 cols.extend(["CreatedAt", "UpdatedAt"])
             indices = get_valid_colum_indices(headers, cols)
             if indices is None:
-                print ("invalid column specified for in {}".format(file))
+                print("invalid column specified for in {}".format(file))
                 return
             
             index = indices[0]
@@ -35,7 +36,7 @@ class Counter(object):
                         continue
                 if interval:
                     if len(interval) != 2:
-                        print ("invalid use of --interval, must give 2 values")
+                        print("invalid use of --interval, must give 2 values")
                     # CreatedAtDate in this format 12/12/12 12:12:12.123-4567
                     # cut off the last 9 values to properly parse
                     dtime = datetime.strptime(row[indices[1]][0:-9], '%Y/%m/%d %H:%M:%S')
@@ -44,13 +45,13 @@ class Counter(object):
 
                 count_map[row[index]] = count_map.get(row[index], 0) + 1
         
-        return self.format_output(count_map, column, outfile, limit)
+        return cls.format_output(count_map, column, outfile, limit)
 
     @classmethod
-    def format_output(self, count_map, column, outfile, limit, fuzzy=False):
+    def format_output(cls, count_map, column, outfile, limit, fuzzy=False):
         
         alert_list = sorted(count_map.items(), 
-                            key = lambda kv:(kv[1], kv[0]), 
+                            key=lambda kv: (kv[1], kv[0]),
                             reverse=True)
 
         if not outfile:
@@ -58,7 +59,7 @@ class Counter(object):
                 if limit <= 0:
                     break
                 print("{}: {}".format(alert, num))
-                limit -=1
+                limit -= 1
         else:
             output_file = 'fuzzy-' + outfile if fuzzy else outfile
             with open(output_file, 'w') as out:
@@ -71,7 +72,8 @@ class Counter(object):
 
 class FuzzyCounter(Counter):
 
-    def count(self, file, column, limit, threshold, remove_numbers, outfile, alias_strip_list):
+    @classmethod
+    def count(cls, file, column, limit, threshold, remove_numbers, outfile, alias_strip_list):
         strip_list = []
         if alias_strip_list:
             with open(alias_strip_list, 'rt', encoding='utf-8') as f:
@@ -85,7 +87,7 @@ class FuzzyCounter(Counter):
 
             indices = get_valid_colum_indices(headers, [column])
             if indices is None:
-                print ("invalid column specified for in {}".format(file))
+                print("invalid column specified for in {}".format(file))
                 return
             
             index = indices[0]
@@ -103,12 +105,12 @@ class FuzzyCounter(Counter):
         if threshold < 100:
             # Get a list of the keys in the count_map
             # Then see if any are a fuzzy match
-            count_map = self.count_fuzzy_matches(count_map, threshold, remove_numbers)
+            count_map = cls.count_fuzzy_matches(count_map, threshold, remove_numbers)
 
-        return self.format_output(count_map, column, outfile, limit, fuzzy=True)
+        return cls.format_output(count_map, column, outfile, limit, fuzzy=True)
 
     @classmethod
-    def count_fuzzy_matches(self, count_map, fuzzy_thresh, remove_numbers):
+    def count_fuzzy_matches(cls, count_map, fuzzy_thresh, remove_numbers):
         alert_keys = list(count_map.keys())
         skip_list = []
         for key, val in count_map.items():
