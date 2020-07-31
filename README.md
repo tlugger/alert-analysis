@@ -33,7 +33,7 @@ Helpful functions for analyzing an export of OpsGenie alerts and collecting usef
 * Publish to PyPI
 
 ### Running
-oopsgenie requires Python3.
+oopsgenie requires Python3.6+
 ```
 pip install -e .
 ```
