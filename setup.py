@@ -1,10 +1,12 @@
-from setuptools import setup, find_packages
+import setuptools
+
 
 def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(
+
+setuptools.setup(
     name='oopsgenie',
     version='0.1.0',
     description='Functions to run analysis on an exported OpsGenie alert CSV',
@@ -17,8 +19,13 @@ setup(
     classifiers=[
         'License :: OSI Approved :: MIT License',
     ],
-    packages=find_packages(),
+    packages=setuptools.find_packages("oopsgenie"),
     install_requires=[
         'fuzzywuzzy',
     ],
+    entry_points={
+        'console_scripts': [
+            'oopsgenie = oopsgenie.oopsgenie:main'
+        ]
+    }
 )
